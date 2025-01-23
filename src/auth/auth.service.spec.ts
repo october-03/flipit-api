@@ -31,4 +31,17 @@ describe('AuthService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('should issue nonce', async () => {
+    const ip = '192.168.0.1';
+    const walletAddr = 'Aa1AA1aAaa1A1AaAA1AAaaaAaAaa1aaaa1aaAa1aAa1a';
+
+    const nonce = await service.issueNonce(ip, walletAddr);
+
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+    expect(nonce).toBeDefined();
+    expect(nonce).toMatch(uuidRegex);
+  });
 });
